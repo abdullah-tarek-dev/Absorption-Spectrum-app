@@ -1,0 +1,79 @@
+/* 🌙 Theme */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Container */
+.app {
+  min-height: 100vh;
+  padding: 20px;
+  transition: 0.3s;
+}
+
+/* Light */
+.app.light {
+  background: #f5f7fb;
+  color: #222;
+}
+
+/* Dark */
+.app.dark {
+  background: #0f172a;
+  color: #fff;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Buttons */
+.controls {
+  margin: 20px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+/* Button colors */
+.btn-start { background: #22c55e; color: white; }
+.btn-stop { background: #ef4444; color: white; }
+.btn-scan { background: #3b82f6; color: white; }
+.btn-export { background: #6366f1; color: white; }
+.btn-dark { background: #111827; color: white; }
+
+button:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+/* Chart Card */
+.chart-card {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* Dark Card */
+.app.dark .chart-card {
+  background: #1e293b;
+}
+
+/* Title */
+.title {
+  font-size: 22px;
+  font-weight: bold;
+}
