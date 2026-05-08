@@ -4,73 +4,52 @@ import {
   LineElement,
   PointElement,
   LinearScale,
-  CategoryScale,
   Title,
   Legend
 } from 'chart.js';
 
-ChartJS.register(LineElement, PointElement, LinearScale, CategoryScale, Title, Legend);
+ChartJS.register(LineElement, PointElement, LinearScale, Title, Legend);
 
 const SpectrumChart = ({ scans, currentScan, getMaxPoint, darkMode }) => {
 
-  let datasets = scans.map((scan, index) => ({
-    label: `Scan ${index + 1}`,
+  let datasets = scans.map((scan, i) => ({
+    label: `Scan ${i + 1}`,
     data: scan.map(p => ({ x: p.wavelength, y: p.absorbance })),
-    borderWidth: 2,
-    tension: 0.4
+    tension: 0.4,
+    borderWidth: 2
   }));
 
-  // 🌟 λ max
-  const maxPoint = getMaxPoint(scans[currentScan] || []);
+  const max = getMaxPoint(scans[currentScan] || []);
 
-  if (maxPoint) {
+  if (max) {
     datasets.push({
-      label: 'λ max',
-      data: [{ x: maxPoint.wavelength, y: maxPoint.absorbance }],
+      label: "λ max",
+      data: [{ x: max.wavelength, y: max.absorbance }],
       pointRadius: 6,
-      pointBackgroundColor: 'red',
       showLine: false
     });
   }
 
-  const data = { datasets };
-
-  const options = {
-    responsive: true,
-    parsing: false,
-    scales: {
-      x: {
-        type: 'linear',
-        min: 400,
-        max: 800,
-        title: {
-          display: true,
-          text: 'Wavelength (nm)',
-          color: darkMode ? '#fff' : '#000'
+  return (
+    <Line
+      data={{ datasets }}
+      options={{
+        parsing: false,
+        responsive: true,
+        scales: {
+          x: { type: 'linear', min: 400, max: 800 },
+          y: { min: 0, max: 1 }
         },
-        ticks: { color: darkMode ? '#fff' : '#000' }
-      },
-      y: {
-        min: 0,
-        max: 1,
-        title: {
-          display: true,
-          text: 'Absorbance',
-          color: darkMode ? '#fff' : '#000'
-        },
-        ticks: { color: darkMode ? '#fff' : '#000' }
-      }
-    },
-    plugins: {
-      legend: {
-        labels: {
-          color: darkMode ? '#fff' : '#000'
+        plugins: {
+          legend: {
+            labels: {
+              color: darkMode ? "#fff" : "#000"
+            }
+          }
         }
-      }
-    }
-  };
-
-  return <Line data={data} options={options} />;
+      }}
+    />
+  );
 };
 
 export default SpectrumChart;
